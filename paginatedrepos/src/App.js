@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import { RepoTable} from './components/RepoTable';
 import { PageHeader } from './components/PageHeader';
 import './App.css';

@@ -11,8 +11,12 @@ const itemProperties = [
 
 export const TableHeader = () => {
     return(
-        <thead><tr>{itemProperties.map(propName => {
-            return <th>{_.capitalize(propName)}</th>
-        })}</tr></thead>
+        <thead>
+            <tr>
+                {itemProperties.map((propName, index) => {
+                    return <th key={index}>{_.capitalize(propName)}</th>
+                })}
+            </tr>
+        </thead>
     )
 }

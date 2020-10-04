@@ -7,7 +7,7 @@ export const PaginationComponent = (props) => {
     const paginationItems = [...Array(totalPages).keys()]
 
     return(
-        <div className="mt1">
+        <div>
             <Pagination>
                 {paginationItems.map(number => {
                     return <Pagination.Item 
