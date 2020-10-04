@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import { Container, Row, Col, Table } from 'react-bootstrap';
-import { Tablerow } from './Tablerow';
+import { Container, Row, Col, Table, Spinner } from 'react-bootstrap';
+import { TableRow } from './TableRow';
 import { TableHeader } from './TableHeader';
 import { PaginationComponent } from './Pagination';
 
@@ -47,8 +47,13 @@ export const RepoTable = (props) => {
             <Row>
                 <Table striped bordered hover responsive size="sm">
                     <TableHeader />
-                    {currentRepos.map(repo => {
-                        return <Tablerow repoObject={repo} />
+                    {repoData.items.length < 1 && (
+                        <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
+                    )}
+                    {currentRepos.map((repo, index) => {
+                        return <TableRow rank={(currentPage*PAGE_LIMIT) + index + 1} repoObject={repo} />
                     })}
                     <PaginationComponent onPageChangeClick={onPageChange} currentPage={currentPage} totalElements={repoData.items.length} elementsPerPage={PAGE_LIMIT}/>
                 </Table> 

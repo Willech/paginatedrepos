@@ -1,11 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
-import { RepoTable } from './components/RepoTable'
+import { RepoTable} from './components/RepoTable';
+import { PageHeader } from './components/PageHeader';
 import './App.css';
 
 export const App = () => {
   return (
     <div>
+      <PageHeader />
       <RepoTable /> 
     </div>
   );

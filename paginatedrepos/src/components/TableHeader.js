@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 const itemProperties = [
+    "Rank",
     "Name",
     "Date created",
     "Watchers",
