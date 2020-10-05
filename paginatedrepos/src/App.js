@@ -7,7 +7,7 @@ export const App = () => {
   return (
     <div>
       <PageHeader />
-      <RepoTable /> 
+      <RepoTable pageLimit={20}/> 
     </div>
   );
 }
