@@ -5,3 +5,13 @@
 .mb2 {
   margin-bottom: 1em
 }
+
+.positive-background {
+  background-color: greenyellow;
+}
+
+.negative-background {
+  background-color: orangered;
+}
+
+

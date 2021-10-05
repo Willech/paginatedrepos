@@ -1,49 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
-import { Container, Row, Table, Spinner } from 'react-bootstrap';
+
+import { Alert, Container, Row, Table, Spinner } from 'react-bootstrap';
 import { TableRow } from './TableRow';
 import { TableHeader } from './TableHeader';
 import { PaginationComponent } from './Pagination';
+import useGetBitcoinData from '../api/useGetBitcoinData';
 
 export const RepoTable = (props) => {
-    const [ repoData, setData ] = useState([]);
+    const [ fetchedData, setData ] = useState([]);
     const [ currentPage, setPage ] = useState(0);
+
     const { pageLimit } = props;
     const offset = currentPage * pageLimit;
+
+    const [btcResponse, isLoading, error] = useGetBitcoinData();
 
     const onPageChange = (number) => {
         setPage(number);
     }
 
     useEffect(() => {
-        const fetchRepos = async () => {
-            const response = await axios("https://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc&per_page=100");
-            setData(response.data.items);
-        };
-        fetchRepos();
-    }, [])
+        setData(btcResponse);
+    }, [btcResponse])
 
     return (
         <Container>
             <Row>
-            {repoData.length < 1 && (
+            {isLoading && (
                         <Spinner animation="border" role="status">
                             <span className="sr-only">Loading...</span>
                         </Spinner>
             )}
-            {repoData.length > 0 && (
+            {(!isLoading && !error) && (
+                <>
                         <Table striped bordered hover responsive size="sm">
                             <TableHeader />
                             <tbody>
-                                {repoData.slice(offset, offset + pageLimit).map((repo, index) => {
-                                    return <TableRow key={index} rank={(currentPage*pageLimit) + index + 1} repoObject={repo} />
+                                {fetchedData.slice(offset, offset + pageLimit).map(
+                                    (btcObject, index) => {
+                                    const prevObj = offset+index < fetchedData.length-1 ? fetchedData[offset + index + 1] : btcObject
+                                    return <TableRow key={index} btcObject={btcObject} prevBtcObject={prevObj}/>
             })}
                             </tbody>
                         </Table> 
+                                    <PaginationComponent onPageChangeClick={onPageChange} currentPage={currentPage} totalElements={fetchedData.length} elementsPerPage={pageLimit}/>
+                </>
             )}
-            </Row>
-            <Row>
-                <PaginationComponent onPageChangeClick={onPageChange} currentPage={currentPage} totalElements={repoData.length} elementsPerPage={pageLimit}/>
+            {error && (
+                <Alert>{error.message}</Alert>
+            )}
             </Row>
         </Container>
     )

@@ -10,12 +10,14 @@ export const PaginationComponent = (props) => {
         <div>
             <Pagination>
                 {paginationItems.map(number => {
-                    return <Pagination.Item 
-                        key={number} 
-                        active={number === currentPage} 
-                        onClick={e => props.onPageChangeClick(number)}>
-                            {number + 1}
+                    return (
+                        <Pagination.Item 
+                            key={number} 
+                            active={number === currentPage} 
+                            onClick={e => props.onPageChangeClick(number)}>
+                                {number + 1}
                         </Pagination.Item>
+                    )
                 })}
             </Pagination>
         </div>

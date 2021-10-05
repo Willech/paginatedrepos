@@ -2,19 +2,19 @@ import React from 'react';
 import _ from 'lodash';
 
 const itemProperties = [
-    "Rank",
-    "Name",
-    "Date created",
-    "Watchers",
-    "Forks"
+    "date",
+    "Open",
+    "Close",
+    "High",
+    "Low",
 ]
 
 export const TableHeader = () => {
     return(
         <thead>
             <tr>
-                {itemProperties.map((propName, index) => {
-                    return <th key={index}>{_.capitalize(propName)}</th>
+                {itemProperties.map((name, index) => {
+                    return <th key={index}>{_.capitalize(name)}</th>
                 })}
             </tr>
         </thead>
